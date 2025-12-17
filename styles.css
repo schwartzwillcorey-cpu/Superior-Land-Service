@@ -89,6 +89,42 @@ body{
   gap: 1rem;
 }
 
+/* Prevent awkward wrapping in the header CTA cluster */
+.topbar__cta .btn{ white-space: nowrap; }
+.topbar__cta{ flex-wrap: wrap; justify-content: flex-end; }
+
+/* Contact dropdown (Call/Text) */
+.contact-menu{ position: relative; }
+.contact-menu > summary{ list-style: none; }
+.contact-menu > summary::-webkit-details-marker{ display:none; }
+.contact-menu[open] > summary{ opacity: 0.92; transform: translateY(-1px); }
+
+.contact-menu__panel{
+  position: absolute;
+  right: 0;
+  top: calc(100% + 10px);
+  min-width: 180px;
+  background: #171717;
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: 14px;
+  box-shadow: 0 18px 45px rgba(0,0,0,0.45);
+  padding: 0.35rem;
+  z-index: 100;
+}
+
+.contact-menu__item{
+  display:block;
+  padding: 0.75rem 0.85rem;
+  border-radius: 10px;
+  text-decoration:none;
+  color: rgba(255,255,255,0.9);
+  font-weight: 600;
+}
+
+.contact-menu__item:hover{
+  background: rgba(255,255,255,0.06);
+}
+
 .link{
   color: var(--soft-white);
   text-decoration:none;
@@ -542,6 +578,57 @@ body{
   line-height: 1.5;
 }
 
+/* Panel refresh: Service Area + FAQ (dark card on light page) */
+.panel-dark{
+  background: #141414;
+  border: 1px solid rgba(0,0,0,0.08);
+  box-shadow: 0 14px 44px rgba(0,0,0,0.18);
+  border-radius: 22px;
+  padding: 2.5rem;
+}
+
+.panel-dark .section__head h2{
+  color: #fff;
+}
+
+.panel-dark .section__head p,
+.panel-dark .muted-note{
+  color: #fff;
+}
+
+/* Gold city pills with black text (requested) */
+.panel-dark .pill{
+  background: var(--accent);
+  border: 1px solid rgba(0,0,0,0.18);
+  color: #111;
+  box-shadow: 0 6px 16px rgba(0,0,0,0.22);
+}
+
+.panel-dark .pill:hover{
+  background: rgba(var(--accent-rgb),0.92);
+  border-color: rgba(0,0,0,0.25);
+}
+
+/* FAQ rows should be a slightly lighter surface than the panel */
+.panel-dark .faq details{
+  background: #1f1f1f;
+  border: 1px solid rgba(255,255,255,0.12);
+}
+
+.panel-dark .faq details:hover{
+  background: #252525;
+  border-color: rgba(var(--accent-rgb),0.55);
+}
+
+.panel-dark .faq details[open]{
+  background: #232323;
+  border-color: rgba(var(--accent-rgb),0.45);
+}
+
+@media (max-width: 860px){
+  .panel-dark{ padding: 1.5rem; border-radius: 18px; }
+}
+
 /* FAQ */
 .faq{
   display: grid;
@@ -772,10 +859,117 @@ body{
 
 .btn--block{ width: 100%; text-align:center; }
 
-.form-note{
-  color: rgba(230,230,230,0.72);
+ .form-note{
+   color: rgba(255,255,255,0.96);
   font-size: 0.92rem;
   margin-top: 0.25rem;
+}
+
+#quote .form-note{
+  color: #ffffff !important;
+}
+
+/* CTA band sits on a light surface — use dark ghost buttons here */
+.cta-band .btn--ghost{
+  border: 1px solid rgba(0,0,0,0.14);
+  color: #111;
+  background: #fff;
+}
+.cta-band .btn--ghost:hover{ background:#f7f7f7; }
+
+/* Force CTA band text/call buttons to appear as solid dark buttons */
+.cta-band .cta-actions .btn--ghost{
+  background: #0f0f0f;
+  color: #ffffff;
+  border: none;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.18);
+}
+
+
+/* Footer logo */
+.footer__logo{
+  width: 140px;
+  height: auto;
+  display:block;
+  margin-bottom: 0.75rem;
+  filter: brightness(1.05) contrast(1.05) drop-shadow(0 2px 10px rgba(0,0,0,0.35));
+}
+
+/* CTA cluster in band */
+.cta-actions{
+  display:flex;
+  gap: 0.65rem;
+  flex-wrap: wrap;
+  align-items:center;
+}
+
+@media (max-width: 860px){
+  .cta-actions{ width: 100%; }
+  .cta-actions .btn{ width: auto; }
+}
+
+/* Footer polish */
+.footer{
+  background: #0f0f0f;
+  color: rgba(255,255,255,0.78);
+  border-top: 1px solid rgba(255,255,255,0.08);
+  padding: 2rem 0;
+}
+
+.footer a{ color: rgba(255,255,255,0.85); text-decoration: none; }
+.footer a:hover{ text-decoration: underline; }
+
+.footer__grid{
+  display:grid;
+  grid-template-columns: 1.2fr 1fr 1fr;
+  gap: 1.5rem;
+  align-items:start;
+}
+
+
+/* Footer content structure */
+.footer__brand{ display:grid; gap: 0.65rem; }
+.footer__name{ font-weight: 900; color: #fff; font-size: 1.1rem; letter-spacing: -0.02em; }
+.footer__tag{ color: rgba(255,255,255,0.72); font-weight: 700; }
+.footer__actions{ display:flex; gap: 0.65rem; flex-wrap: wrap; }
+
+.footer__links{ list-style:none; padding:0; margin:0; display:grid; gap: 0.45rem; }
+
+.footer__muted{ color: rgba(255,255,255,0.68); line-height: 1.55; }
+
+.footer__title{
+  color: #fff;
+  font-weight: 800;
+  margin-bottom: 0.5rem;
+}
+
+.footer__list{ display:grid; gap: 0.4rem; }
+
+.footer__bottom{
+  margin-top: 1.5rem;
+  padding-top: 1rem;
+  border-top: 1px solid rgba(255,255,255,0.08);
+  display:flex;
+  justify-content:space-between;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.footer__badge{
+  display:inline-flex;
+  gap: 0.5rem;
+  align-items:center;
+}
+
+.footer__badge .dot{
+  width: 6px;
+  height: 6px;
+  border-radius: 999px;
+  background: var(--accent);
+}
+
+@media (max-width: 860px){
+  .footer__grid{ grid-template-columns: 1fr; }
 }
 
 /* Sticky mobile CTA bar */
@@ -810,6 +1004,12 @@ body{
 .mobile-cta__btn--quote{
   background: var(--accent);
   color: #111;
+}
+
+.mobile-cta__btn--text{
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.16);
+  color: rgba(255,255,255,0.92);
 }
 
 @media (max-width: 860px){
@@ -935,6 +1135,12 @@ p, li{
 .quote-form select,
 .quote-form textarea{
   background: rgba(0,0,0,0.28);
+}
+
+#quote .contact__row .btn--ghost{
+  background: #0f0f0f;
+  color: #ffffff;
+  border-color: transparent;
 }
 
 /* Footer CTA strip */
@@ -1107,7 +1313,7 @@ p, li{
 
 /* Service Area + FAQ blocks */
 .section .section__head h2{
-  color: #111;
+  color: #f3f1f1;
 }
 
 .section--dark .section__head h2{
@@ -1167,6 +1373,20 @@ p, li{
 .section:not(.section--dark) .tag{
   color: #111111 !important;
   opacity: 1 !important;
+}
+
+/* Ensure the service-area panel text stays white even in light sections */
+#service-area .section__head h2,
+#service-area .section__head p,
+#service-area .muted-note{
+  color: #ffffff !important;
+}
+
+/* Keep FAQ summaries white inside the dark service-area card */
+#service-area .faq summary{
+  color: #ffffff !important;
+  background-clip: unset !important;
+  -webkit-background-clip: unset !important;
 }
 
 /* FAQ accordion / details on light sections */
