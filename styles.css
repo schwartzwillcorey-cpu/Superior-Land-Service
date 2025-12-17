@@ -7,8 +7,9 @@
   --soft-white: #e6e6e6;
   --muted-gray: #bdbdbd;
 
-  /* Accent (subtle earth tone) */
-  --accent: #b08a3a;
+  /* Accent (gold) */
+  --accent: #d4af37;
+  --accent-rgb: 212, 175, 55;
 
   --text: #111;
   --bg: #fff;
@@ -116,28 +117,8 @@ body{
 }
 
 .btn--solid{
-  background:
-    linear-gradient(180deg, #eec868, #d2a43e);
+  background: var(--accent);
   color:#111;
-  border: 1px solid rgba(0,0,0,0.1);
-  box-shadow: 0 10px 26px rgba(0,0,0,0.18);
-}
-
-.btn--solid:focus-visible{
-  outline: none;
-  box-shadow: 0 0 0 3px rgba(255,255,255,0.8), 0 0 0 6px rgba(176,138,58,0.5);
-}
-
-.btn--solid:active{
-  transform: translateY(0px);
-  box-shadow: 0 6px 18px rgba(0,0,0,0.2);
-}
-
-.btn--solid:hover{
-  background:
-    linear-gradient(180deg, #e5bb4a, #cb9631);
-  transform: translateY(-1px);
-  box-shadow: 0 12px 28px rgba(0,0,0,0.22);
 }
 
 .btn--ghost{
@@ -148,7 +129,7 @@ body{
 
 /* Hero */
 .hero{
-  background: radial-gradient(1200px 600px at 20% 0%, rgba(176,138,58,0.12), rgba(0,0,0,0) 55%),
+  background: radial-gradient(1200px 600px at 20% 0%, rgba(var(--accent-rgb),0.12), rgba(0,0,0,0) 55%),
               linear-gradient(to bottom, var(--black), var(--dark-gray));
   color: var(--soft-white);
   padding: 4.25rem 0 3.25rem;
@@ -427,7 +408,7 @@ body{
   bottom: 6px;
   width: 3px;
   border-radius: 999px;
-  background: rgba(176,138,58,0.9);
+  background: rgba(var(--accent-rgb),0.92);
 }
 
 /* Proof strip under hero */
@@ -458,7 +439,7 @@ body{
 }
 
 .proof-strip .dot{
-  color: rgba(176,138,58,0.9);
+  color: rgba(var(--accent-rgb),0.95);
 }
 
 
@@ -473,16 +454,15 @@ body{
 .how-it-works__title{
   display: block;
   width: 100%;
-  padding: 1.75rem 1.5rem;
-  background:
-    linear-gradient(180deg, rgba(15,15,15,0.98) 0%, rgba(10,10,10,0.92) 60%, rgba(7,7,7,0.88) 100%);
+  padding: 1rem 1.25rem;
+  background: #0d0d0d;
   color: #ffffff !important;
-  border-radius: 16px;
-  border: 1px solid rgba(255,255,255,0.1);
-  box-shadow: 0 18px 34px rgba(0,0,0,0.45);
+  border-radius: 14px;
+  border: 1px solid rgba(255,255,255,0.08);
+  box-shadow: 0 10px 26px rgba(0,0,0,0.22);
   letter-spacing: -0.01em;
-  line-height: 1.25;
-  margin-bottom: 1rem;
+  line-height: 1.2;
+  margin-bottom: 0.9rem;
 }
 
 .step{
@@ -506,8 +486,8 @@ body{
   justify-content:center;
   font-weight: 800;
   color: #111;
-  background: rgba(176,138,58,0.9);
-  border: 1px solid rgba(176,138,58,0.9);
+  background: rgba(var(--accent-rgb),0.92);
+  border: 1px solid rgba(var(--accent-rgb),0.92);
 }
 
 .step h3{
@@ -519,34 +499,8 @@ body{
   color: rgba(240,240,240,0.92);
 }
 
-/* Service Area + FAQ panel */
-.service-faq-card{
-  background: #151515 !important;
-  border: 1px solid rgba(255,255,255,0.08);
-  border-radius: 18px;
-  padding: 36px 34px;
-  box-shadow: 0 18px 36px rgba(0,0,0,0.35);
-}
-
-.service-faq-card,
-.service-faq-card *{
-  color: rgba(255,255,255,0.85);
-}
-
-.service-faq-card h2,
-.service-faq-card h3,
-.service-faq-card .section-title,
-.service-faq-card .title{
-  color: #ffffff !important;
-}
-
-.service-faq-card p,
-.service-faq-card .muted,
-.service-faq-card .subtext{
-  color: rgba(255,255,255,0.70) !important;
-}
-
-.service-faq-card .two-col{
+/* Two column dark section */
+.two-col{
   display: grid;
   grid-template-columns: 1.05fr 0.95fr;
   gap: 3rem;
@@ -560,31 +514,25 @@ body{
   margin-top: 1.25rem;
 }
 
-.service-faq-card .pill,
-.service-faq-card .chip,
-.service-faq-card .service-area-chip{
+.pill{
   display:inline-flex;
-  align-items:center;
-  justify-content:center;
-  padding: 0.55rem 1.25rem;
+  padding: 0.6rem 1rem;
   border-radius: 999px;
-  border: 1px solid rgba(255,255,255,0.14);
-  background: #1f1f1f;
-  color: rgba(255,255,255,0.9) !important;
-  font-size: 0.95rem;
+  border: 1px solid rgba(255,255,255,0.2);
+  background: rgba(255,255,255,0.1);
+  color: rgba(255,255,255,0.95);
+  font-size: 0.94rem;
   font-weight: 600;
   letter-spacing: -0.01em;
-  transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
-  box-shadow: 0 6px 18px rgba(0,0,0,0.30);
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
 }
 
-.service-faq-card .pill:hover,
-.service-faq-card .chip:hover,
-.service-faq-card .service-area-chip:hover{
-  background: #252525;
-  border-color: rgba(255,255,255,0.20);
+.pill:hover{
+  background: rgba(255,255,255,0.16);
+  border-color: rgba(var(--accent-rgb),0.55);
   transform: translateY(-1px);
-  box-shadow: 0 10px 32px rgba(0,0,0,0.35);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
 }
 
 .muted-note{
@@ -597,52 +545,35 @@ body{
 /* FAQ */
 .faq{
   display: grid;
-  gap: 0.65rem;
-  margin-top: 0.65rem;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
 }
 
 .faq details{
-  border: 1px solid rgba(255,255,255,0.14);
+  border: 1px solid rgba(255,255,255,0.18);
   border-radius: 14px;
-  padding: 1.35rem 1.4rem;
-  background: #1e1e1e;
+  padding: 1.15rem 1.25rem;
+  background: rgba(255,255,255,0.08);
   transition: all 0.2s ease;
   cursor: pointer;
-  position: relative;
-  overflow: hidden;
-}
-
-.faq details::before{
-  content: "";
-  position: absolute;
-  left: 0;
-  top: 0;
-  bottom: 0;
-  width: 4px;
-  background: transparent;
-  transition: background 0.2s ease;
 }
 
 .faq details:hover{
-  border-color: rgba(176,138,58,0.65);
-  background: #242424;
-  box-shadow: 0 6px 16px rgba(0,0,0,0.25);
-}
-
-.faq details:hover::before{
-  background: rgba(176,138,58,0.95);
+  border-color: rgba(var(--accent-rgb),0.65);
+  background: rgba(255,255,255,0.12);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
 }
 
 .faq details[open]{
-  border-color: rgba(176,138,58,0.5);
-  background: #242424;
-  box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+  border-color: rgba(var(--accent-rgb),0.55);
+  background: rgba(255,255,255,0.1);
+  box-shadow: 0 6px 16px rgba(0,0,0,0.2);
 }
 
 .faq summary{
   cursor: pointer;
   font-weight: 700;
-  color: rgba(255,255,255,0.9);
+  color: rgba(255,255,255,0.98);
   letter-spacing: -0.01em;
   font-size: 1rem;
   line-height: 1.4;
@@ -662,8 +593,8 @@ body{
   top: 50%;
   transform: translateY(-50%);
   font-size: 1.4rem;
-  font-weight: 600;
-  color: #b08a3a;
+  font-weight: 300;
+  color: rgba(var(--accent-rgb),0.95);
   transition: transform 0.2s ease;
 }
 
@@ -672,54 +603,12 @@ body{
   transform: translateY(-50%) rotate(0deg);
 }
 
-.service-faq-card .faq-item,
-.service-faq-card .faq-row,
-.service-faq-card details,
-.service-faq-card summary{
-  background: #1f1f1f;
-  border: 1px solid rgba(255,255,255,0.14);
-  color: rgba(255,255,255,0.9) !important;
-}
-
-.service-faq-card summary{
-  padding: 16px 18px;
-  cursor: pointer;
-}
-
-.service-faq-card .faq-item:hover,
-.service-faq-card .faq-row:hover,
-.service-faq-card summary:hover{
-  background: #252525;
-}
-
-.service-faq-card .faq-icon,
-.service-faq-card .plus,
-.service-faq-card summary::after{
-  color: #d4af37 !important;
-  opacity: 1 !important;
-}
-
 .faq p{
   margin-top: 0.85rem;
   color: rgba(240,240,240,0.92);
   line-height: 1.6;
   padding-top: 0.5rem;
   border-top: 1px solid rgba(255,255,255,0.08);
-}
-
-.faq details::after{
-  content: "";
-  position: absolute;
-  left: 1.4rem;
-  right: 1.4rem;
-  bottom: 0;
-  height: 1px;
-  background: rgba(255,255,255,0.06);
-  opacity: 0.6;
-}
-
-.faq details:last-child::after{
-  display: none;
 }
 
 /* CTA band */
@@ -750,13 +639,6 @@ body{
   .two-col{ grid-template-columns: 1fr; }
   .proof-strip{ max-width: 100%; }
   .cta-band__inner{ flex-direction: column; align-items: flex-start; }
-}
-
-@media (max-width: 860px){
-  .section--dark .two-col{
-    padding: 28px 24px;
-    gap: 1.5rem;
-  }
 }
 
 
@@ -821,7 +703,7 @@ body{
 }
 
 .navlinks a:hover{
-  border-bottom-color: rgba(176,138,58,0.9);
+  border-bottom-color: rgba(var(--accent-rgb),0.95);
 }
 
 /* Improve section rhythm */
@@ -842,23 +724,23 @@ body{
 
 /* Quote form */
 .quote-form{
-  border: 1px solid rgba(255,255,255,0.12);
-  background: rgba(255,255,255,0.04);
-  border-radius: 20px;
-  padding: 1.65rem;
+  border: 1px solid rgba(255,255,255,0.10);
+  background: rgba(255,255,255,0.06);
+  border-radius: 18px;
+  padding: 1.5rem;
   display: grid;
-  gap: 1.35rem;
+  gap: 1.15rem;
 }
 
 .quote-form label{
   display:grid;
-  gap: 0.35rem;
+  gap: 0.45rem;
 }
 
 .quote-form span{
-  color: rgba(255,255,255,0.92);
-  font-weight: 600;
-  font-size: 0.95rem;
+  color: rgba(230,230,230,0.9);
+  font-weight: 700;
+  font-size: 0.92rem;
   letter-spacing: -0.005em;
 }
 
@@ -866,40 +748,26 @@ body{
 .quote-form select,
 .quote-form textarea{
   width: 100%;
-  padding: 1rem 1rem;
-  border-radius: 14px;
+  padding: 0.95rem 0.95rem;
+  border-radius: 12px;
   border: 1px solid rgba(255,255,255,0.14);
-  background: rgba(255,255,255,0.08);
-  color: rgba(255,255,255,0.95);
-  line-height: 1.5;
-  transition: border-color 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+  background: rgba(0,0,0,0.18);
+  color: rgba(230,230,230,0.95);
+  font-size: 16px; /* prevent iOS zoom + improve mobile readability */
   outline: none;
+  line-height: 1.4;
 }
 
 .quote-form input::placeholder,
 .quote-form textarea::placeholder{
-  color: rgba(255,255,255,0.65);
+  color: rgba(230,230,230,0.62);
 }
 
 .quote-form input:focus,
 .quote-form select:focus,
 .quote-form textarea:focus{
-  border-color: rgba(176,138,58,0.9);
-  box-shadow: 0 0 0 3px rgba(176,138,58,0.25);
-  background: rgba(255,255,255,0.12);
-}
-
-.quote-form input:focus-visible,
-.quote-form select:focus-visible,
-.quote-form textarea:focus-visible{
-  outline: none;
-}
-
-.quote-form input:focus,
-.quote-form select:focus,
-.quote-form textarea:focus{
-  border-color: rgba(176,138,58,0.9);
-  box-shadow: 0 0 0 3px rgba(176,138,58,0.20);
+  border-color: rgba(var(--accent-rgb),0.92);
+  box-shadow: 0 0 0 3px rgba(var(--accent-rgb),0.22);
 }
 
 .btn--block{ width: 100%; text-align:center; }
@@ -1027,7 +895,7 @@ p, li{
 
 .trust-bullets li::before{
   content: "✓";
-  color: rgba(176,138,58,0.95);
+  color: rgba(var(--accent-rgb),0.95);
   font-weight: 900;
 }
 
@@ -1355,35 +1223,21 @@ p, li{
 /* Services cards: force white text on dark surface */
 #services .card,
 #services .card--readable{
-  background:
-    linear-gradient(180deg, rgba(21,21,21,0.98) 0%, rgba(18,18,18,0.95) 60%, rgba(12,12,12,0.9) 100%);
+  background: #161616 !important;
   color: #ffffff !important;
-  border: 1px solid rgba(255,255,255,0.08) !important;
-  padding: 30px !important;
-  border-radius: 20px;
-  box-shadow: 0 20px 36px rgba(0,0,0,0.45);
-  transition: transform 0.22s ease, box-shadow 0.22s ease, border-color 0.22s ease;
+  border-color: rgba(255,255,255,0.18) !important;
 }
 
 #services .card h3,
 #services .card--readable h3{
   color: #ffffff !important;
-  letter-spacing: -0.01em;
 }
 
 #services .card p,
 #services .card li,
 #services .card--readable p,
 #services .card--readable li{
-  color: rgba(255,255,255,0.82) !important;
-  line-height: 1.6;
-}
-
-#services .card:hover,
-#services .card--readable:hover{
-  transform: translateY(-2px);
-  border-color: rgba(255,255,255,0.14) !important;
-  box-shadow: 0 26px 46px rgba(0,0,0,0.55);
+  color: rgba(255,255,255,0.97) !important;
 }
 
 /* Any muted text inside cards should still be readable */
@@ -1452,54 +1306,4 @@ header .logo img {
   header .logo img {
     height: 52px;
   }
-}
-
-/* === FIX: Service Area + FAQ card readability (authoritative override) ===
-   Goal: preserve white/black/gold, eliminate black-on-black + low-contrast text.
-   Keep layout unchanged; only enforce surface separation + text contrast.
-*/
-.section.section--dark.service-faq-card{
-  background: #151515 !important; /* charcoal, not pure black */
-  color: rgba(255,255,255,0.88) !important;
-  border: 1px solid rgba(255,255,255,0.10) !important;
-}
-
-.section.section--dark.service-faq-card .section__head h2{
-  color: #ffffff !important;
-}
-
-.section.section--dark.service-faq-card .section__head p,
-.section.section--dark.service-faq-card .muted-note{
-  color: rgba(255,255,255,0.72) !important;
-}
-
-/* City pills: must be lighter than the panel */
-.section.section--dark.service-faq-card .pill{
-  background: #1f1f1f !important;
-  color: rgba(255,255,255,0.92) !important;
-  border: 1px solid rgba(255,255,255,0.16) !important;
-}
-
-.section.section--dark.service-faq-card .pill:hover{
-  background: #252525 !important;
-  border-color: rgba(255,255,255,0.22) !important;
-}
-
-/* FAQ rows: keep as a distinct surface and force readable summary text */
-.section.section--dark.service-faq-card .faq details{
-  background: #1f1f1f !important;
-  border: 1px solid rgba(255,255,255,0.16) !important;
-}
-
-.section.section--dark.service-faq-card .faq summary{
-  color: rgba(255,255,255,0.92) !important;
-}
-
-.section.section--dark.service-faq-card .faq p{
-  color: rgba(255,255,255,0.86) !important;
-}
-
-.section.section--dark.service-faq-card .faq summary::after{
-  color: var(--accent) !important; /* gold */
-  opacity: 1 !important;
 }
