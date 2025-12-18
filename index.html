@@ -3,12 +3,40 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Superior Land Services | Land Clearing &amp; Site Prep | Wills Point, TX</title>
-  <meta name="description" content="Superior Land Services provides land clearing, grading, drainage solutions, and pond work in Wills Point, TX and surrounding areas. Call for an estimate." />
+  <title>Land Clearing &amp; Forestry Mulching | Wills Point, TX | Superior Land Services</title>
+  <meta name="description" content="Superior Land Services provides land clearing, forestry mulching, grading, drainage, and pond services in Wills Point, TX. Call or text for a fast estimate." />
+  <link rel="canonical" href="https://www.superior-land-services.com/" />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css?v=8" />
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "LocalBusiness",
+    "name": "Superior Land Services",
+    "url": "https://www.superior-land-services.com/",
+    "telephone": "+12147978780",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Wills Point",
+      "addressRegion": "TX",
+      "addressCountry": "US"
+    },
+    "areaServed": [
+      "Wills Point, TX",
+      "Terrell, TX",
+      "Forney, TX",
+      "Kaufman, TX",
+      "Canton, TX",
+      "Edgewood, TX",
+      "Rockwall, TX"
+    ],
+    "sameAs": [
+      "https://www.facebook.com/profile.php?id=61585232637346"
+    ]
+  }
+  </script>
 </head>
 
 <body>
@@ -138,7 +166,7 @@
 
 
 
-    <section class="section section--dark">
+    <section class="section section--dark why-card">
       <div class="container">
         <div class="section__head">
           <h2>Why Choose Us</h2>
@@ -146,10 +174,15 @@
         </div>
 
         <ul class="bullets">
-          <li>No job too big or small</li>
-          <li>Clear communication and professional service</li>
-          <li>Committed to quality and getting the job done right</li>
+          <li><strong>No job too big or small</strong></li>
+          <li><strong>Clear communication</strong> and professional service</li>
+          <li><strong>Committed to quality</strong> and getting the job done right</li>
         </ul>
+        <div class="why-card__meta">
+          <a class="why-card__facebook-link" href="https://www.facebook.com/profile.php?id=61585232637346" target="_blank" rel="noopener noreferrer" aria-label="See recent projects on Facebook">
+            See recent projects on Facebook →
+          </a>
+        </div>
       </div>
     </section>
 
@@ -289,6 +322,7 @@
 
       <button class="btn btn--solid btn--block" type="submit">Get a Free Quote</button>
       <p class="form-note">Typical response: as soon as possible during normal hours. If urgent, call/text.</p>
+      <p class="form-confirmation" role="status" aria-live="polite" hidden tabindex="-1">Thanks — we’ll reach out ASAP.</p>
     </form>
   </div>
 </section>
@@ -318,6 +352,12 @@
       <div class="footer__actions">
         <a class="btn btn--solid" href="tel:+12147978780">Call (214) 797-8780</a>
         <a class="btn btn--ghost" href="sms:+12147978780">Text</a>
+        <a class="footer__social-link" href="https://www.facebook.com/profile.php?id=61585232637346" target="_blank" rel="noopener noreferrer" aria-label="Follow Superior Land Services on Facebook">
+          <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+            <path d="M22 12c0-5.5-4.5-10-10-10S2 6.5 2 12c0 4.8 3.4 8.8 7.9 9.8v-6.9H7.7V12h2.2V9.8c0-2.2 1.3-3.5 3.3-3.5.9 0 1.8.1 2.6.2v2.8h-1.6c-1.3 0-1.6.6-1.6 1.5V12h2.7l-.4 2.9h-2.3V21.8C18.6 20.7 22 16.8 22 12z"/>
+          </svg>
+          Follow us on Facebook
+        </a>
       </div>
     </div>
 
@@ -348,8 +388,33 @@
   </div>
 
   <script>
-    // Set footer year
-    document.getElementById('year').textContent = new Date().getFullYear();
+    const yearElement = document.getElementById('year');
+    if (yearElement) {
+      yearElement.textContent = new Date().getFullYear();
+    }
+
+    const quoteTarget = document.getElementById('quote');
+    if (quoteTarget) {
+      document.querySelectorAll('a[href="#quote"]').forEach(link => {
+        link.addEventListener('click', event => {
+          event.preventDefault();
+          quoteTarget.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        });
+      });
+    }
+
+    const quoteForm = document.querySelector('.quote-form');
+    const confirmation = document.querySelector('.form-confirmation');
+    if (quoteForm && confirmation) {
+      quoteForm.addEventListener('submit', event => {
+        event.preventDefault();
+        confirmation.hidden = false;
+        confirmation.textContent = 'Thanks — we’ll reach out ASAP.';
+        quoteForm.reset();
+        confirmation.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        confirmation.focus();
+      });
+    }
   </script>
 </body>
 </html>
