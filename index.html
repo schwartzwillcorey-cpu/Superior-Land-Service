@@ -405,14 +405,53 @@
 
     const quoteForm = document.querySelector('.quote-form');
     const confirmation = document.querySelector('.form-confirmation');
+    const quoteSubmitBtn = quoteForm ? quoteForm.querySelector('button[type="submit"]') : null;
+
+    // Send quote requests to Zapier webhook (static-site friendly).
+    // NOTE: We use `mode: "no-cors"` to avoid CORS blocking while still delivering the payload.
+    const ZAPIER_WEBHOOK_URL = 'https://hooks.zapier.com/hooks/catch/24223571/uamsvia/';
+
     if (quoteForm && confirmation) {
-      quoteForm.addEventListener('submit', event => {
+      quoteForm.addEventListener('submit', async (event) => {
         event.preventDefault();
-        confirmation.hidden = false;
-        confirmation.textContent = 'Thanks — we’ll reach out ASAP.';
-        quoteForm.reset();
-        confirmation.scrollIntoView({ behavior: 'smooth', block: 'center' });
-        confirmation.focus();
+
+        // UI: disable button while sending
+        if (quoteSubmitBtn) {
+          quoteSubmitBtn.disabled = true;
+          quoteSubmitBtn.dataset.originalText = quoteSubmitBtn.textContent;
+          quoteSubmitBtn.textContent = 'Sending...';
+        }
+
+        // Always hide and reset confirmation text until we know the result
+        confirmation.hidden = true;
+        confirmation.textContent = '';
+
+        try {
+          const formData = new FormData(quoteForm);
+          formData.append('source', 'Website');
+
+          await fetch(ZAPIER_WEBHOOK_URL, {
+            method: 'POST',
+            body: formData,
+            mode: 'no-cors'
+          });
+
+          confirmation.hidden = false;
+          confirmation.textContent = 'Thanks — we’ll reach out ASAP.';
+          quoteForm.reset();
+          confirmation.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          confirmation.focus();
+        } catch (err) {
+          confirmation.hidden = false;
+          confirmation.textContent = 'Sorry — something went wrong. Please call or text us and we’ll get you taken care of.';
+          confirmation.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          confirmation.focus();
+        } finally {
+          if (quoteSubmitBtn) {
+            quoteSubmitBtn.disabled = false;
+            quoteSubmitBtn.textContent = quoteSubmitBtn.dataset.originalText || 'Get a Free Quote';
+          }
+        }
       });
     }
   </script>
