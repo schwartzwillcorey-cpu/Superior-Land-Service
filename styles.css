@@ -1696,6 +1696,11 @@ p, li{
   -webkit-background-clip: unset !important;
 }
 
+/* Keep FAQ ANSWERS readable inside the dark service-area card */
+#service-area .faq p{
+  color: rgba(240,240,240,0.92) !important;
+}
+
 /* FAQ accordion / details on light sections */
 .section:not(.section--dark) details summary,
 .section:not(.section--dark) details summary *{
@@ -1899,4 +1904,23 @@ form.quote-form select:focus {
 
 .form-confirmation[hidden]{
   display:none !important;
+}
+
+
+/* === Mobile Hero Image Visibility Boost (Added) === */
+@media (max-width: 768px) {
+  .hero {
+    min-height: 82vh;
+    background-position: center top;
+  }
+
+  .hero::before {
+    opacity: 0.38;
+  }
+}
+
+@media (max-width: 768px) {
+  .hero {
+    filter: contrast(1.12) saturate(1.06);
+  }
 }
