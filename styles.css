@@ -8,10 +8,14 @@
   --muted-gray: #bdbdbd;
 
   /* Accent (gold) */
-  --accent: #d4af37;
+  --gold: #d4af37;
+  --accent: var(--gold);
   --accent-rgb: 212, 175, 55;
 
-  --text: #111;
+  --text-dark: #111111;
+  --text-light: rgba(255,255,255,0.92);
+
+  --text: var(--text-dark);
   --bg: #fff;
   --border: #eee;
 }
@@ -138,28 +142,59 @@ body{
 
 /* Buttons */
 .btn{
-  display:inline-block;
-  padding:0.75rem 1.15rem;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:0.4rem;
+  padding:0.95rem 1.5rem;
+  font-weight:700;
+  font-size:1rem;
+  letter-spacing:0.02em;
+  border-radius: 999px;
+  white-space:nowrap;
   text-decoration:none;
-  font-weight:600;
-  border-radius: 12px;
-  transition: opacity .15s ease, transform .15s ease;
+  border:none;
+  cursor:pointer;
+  transition: transform .2s ease, box-shadow .2s ease, opacity .2s ease;
   will-change: transform;
 }
 
-.btn:hover{
-  opacity:0.92;
-  transform: translateY(-1px);
+.btn:focus-visible{
+  outline: 2px solid rgba(var(--accent-rgb),0.7);
+  outline-offset: 3px;
 }
 
 .btn--solid{
-  background: var(--accent);
-  color:#111;
+  background: var(--gold);
+  color: #111111;
+  box-shadow: 0 12px 30px rgba(0,0,0,0.25);
+}
+
+.btn--solid:hover{
+  transform: translateY(-2px);
+  box-shadow: 0 16px 38px rgba(0,0,0,0.28);
 }
 
 .btn--ghost{
-  border:1px solid rgba(230,230,230,0.75);
+  border: 1px solid rgba(0,0,0,0.2);
+  color: #111111;
+  background: transparent;
+}
+
+.btn--ghost:hover{
+  border-color: rgba(0,0,0,0.5);
+}
+
+.section--dark .btn--ghost,
+.hero .btn--ghost{
   color: var(--soft-white);
+  border-color: rgba(255,255,255,0.65);
+}
+
+.topbar .btn--ghost,
+.footer .btn--ghost{
+  color: var(--soft-white);
+  border-color: rgba(255,255,255,0.65);
   background: transparent;
 }
 
@@ -232,6 +267,92 @@ body{
   background: #fff;
 }
 
+.why-card{
+  background: var(--black);
+}
+
+.why-card > .container{
+  background: #fefefe;
+  border: 1px solid rgba(0,0,0,0.06);
+  border-radius: 26px;
+  padding: clamp(2.5rem, 3vw, 3.5rem);
+  box-shadow: 0 20px 40px rgba(0,0,0,0.12);
+}
+
+.why-card .section__head{
+  margin-bottom: 1.75rem;
+}
+
+.why-card .section__head h2{
+  color: #111111;
+  font-size: clamp(2rem, 3vw, 2.3rem);
+}
+
+.why-card .section__head p{
+  color: #333333;
+  font-size: 1rem;
+  margin-top: 0.35rem;
+}
+
+.why-card .bullets{
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.why-card .bullets li{
+  position: relative;
+  padding-left: 28px;
+  margin-bottom: 1.35rem;
+  font-size: 1.05rem;
+  line-height: 1.75;
+  color: #111111;
+}
+
+.why-card .bullets li::before{
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--accent);
+  box-shadow: 0 0 0 3px rgba(var(--accent-rgb),0.15);
+}
+
+.why-card .bullets strong{
+  font-weight: 700;
+  display: inline-block;
+}
+
+.why-card .bullets li + li{
+  margin-top: 0.5rem;
+}
+
+.why-card__meta{
+  margin-top: 1.5rem;
+}
+
+.why-card__facebook-link{
+  color: #111111;
+  font-size: 0.95rem;
+  letter-spacing: 0.02em;
+  text-decoration: none;
+  border-bottom: 1px solid rgba(212,175,55,0.2);
+  padding-bottom: 2px;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.why-card__facebook-link::after{
+  content: "→";
+  color: var(--accent);
+  font-weight: 600;
+}
+
 .section__head{
   margin-bottom: 1.5rem;
 }
@@ -274,23 +395,36 @@ body{
 }
 
 .card{
-  border:1px solid var(--border);
-  padding:1.5rem;
-  border-radius: 18px;
+  border:1px solid rgba(0,0,0,0.08);
+  padding:1.75rem;
+  border-radius: 22px;
   background:#fff;
+  box-shadow: 0 12px 28px rgba(0,0,0,0.08);
+  transition: transform .25s ease, box-shadow .25s ease;
+}
+
+.card:hover{
+  transform: translateY(-4px);
+  box-shadow: 0 16px 36px rgba(0,0,0,0.16);
 }
 
 .card h3{
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.6rem;
 }
 
 .card p{
-  color:#444;
+  color:#222;
+  line-height:1.6;
+}
+
+.card--readable{
+  min-height: 220px;
 }
 
 .section--dark .card{
   background: transparent;
-  border-color: #2a2a2a;
+  border-color: rgba(255,255,255,0.2);
+  box-shadow: none;
 }
 
 .section--dark .card p{
@@ -811,21 +945,23 @@ body{
 
 /* Quote form */
 .quote-form{
-  border: 1px solid rgba(255,255,255,0.10);
-  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(0,0,0,0.18);
+  background: #ffffff;
   border-radius: 18px;
   padding: 1.5rem;
   display: grid;
   gap: 1.15rem;
+  color: #111;
+  box-shadow: 0 12px 30px rgba(0,0,0,0.2);
 }
 
 .quote-form label{
-  display:grid;
+  display: grid;
   gap: 0.45rem;
 }
 
 .quote-form span{
-  color: rgba(230,230,230,0.9);
+  color: #111;
   font-weight: 700;
   font-size: 0.92rem;
   letter-spacing: -0.005em;
@@ -837,9 +973,9 @@ body{
   width: 100%;
   padding: 0.95rem 0.95rem;
   border-radius: 12px;
-  border: 1px solid rgba(255,255,255,0.14);
-  background: rgba(0,0,0,0.18);
-  color: rgba(230,230,230,0.95);
+  border: 1px solid rgba(0,0,0,0.2);
+  background: #ffffff;
+  color: #111;
   font-size: 16px; /* prevent iOS zoom + improve mobile readability */
   outline: none;
   line-height: 1.4;
@@ -847,7 +983,7 @@ body{
 
 .quote-form input::placeholder,
 .quote-form textarea::placeholder{
-  color: rgba(230,230,230,0.62);
+  color: rgba(0,0,0,0.45);
 }
 
 .quote-form input:focus,
@@ -859,14 +995,158 @@ body{
 
 .btn--block{ width: 100%; text-align:center; }
 
- .form-note{
-   color: rgba(255,255,255,0.96);
-  font-size: 0.92rem;
-  margin-top: 0.25rem;
+#quote{
+  background: #0f0f0f;
+  color: #ffffff;
+  padding: 80px 0;
+}
+
+#quote .contact{
+  background: #0f0f0f;
+  color: #ffffff;
+  padding-bottom: 3rem;
+}
+
+#quote .contact p,
+#quote .contact .fineprint{
+  color: #ffffff;
+}
+
+#quote .contact__row .btn--ghost{
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+
+  height: 52px !important;
+  padding: 0 22px !important;
+  min-width: 140px !important;
+
+  border-radius: 14px !important;
+  border: 2px solid rgba(255,255,255,0.55) !important;
+
+  background: transparent !important;
+  color: #ffffff !important;
+
+  font-weight: 700 !important;
+  font-size: 16px !important;
+  line-height: 1 !important;
+  text-decoration: none !important;
+
+  cursor: pointer !important;
+  user-select: none !important;
+
+  transition: transform .15s ease, background-color .15s ease, border-color .15s ease, box-shadow .15s ease !important;
+}
+
+#quote .contact__row .btn--ghost:hover{
+  background: rgba(255,255,255,0.10) !important;
+  border-color: rgba(255,255,255,0.80) !important;
+  transform: translateY(-1px) !important;
+}
+
+#quote .contact__row .btn--ghost:active{
+  transform: translateY(0px) scale(0.99) !important;
+}
+
+#quote .contact__row .btn--ghost:focus,
+#quote .contact__row .btn--ghost:focus-visible{
+  outline: none !important;
+  box-shadow: 0 0 0 3px rgba(212,175,55,0.25) !important;
 }
 
 #quote .form-note{
-  color: #ffffff !important;
+  color: #111;
+  font-size: 0.92rem;
+  margin-top: 0.25rem;
+  background: rgba(255,255,255,0.06);
+  padding: 0.35rem 0.8rem;
+  border-radius: 12px;
+  display: inline-flex;
+}
+
+/* =========================
+   QUOTE / FORM SECTION
+   ========================= */
+
+ .section--quote {
+   background: #0f0f0f;
+   color: #ffffff;
+   padding: 80px 0;
+ }
+
+.section--quote h2 {
+  color: #111111;
+}
+
+.quote-subtitle {
+  color: #333333;
+  max-width: 620px;
+  margin-bottom: 24px;
+}
+
+.quote-actions {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 32px;
+}
+
+.quote-form {
+  background: #ffffff;
+  max-width: 680px;
+  border: 1px solid rgba(0,0,0,1);
+  border-radius: 20px;
+  padding: 2rem;
+}
+
+.quote-form label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 6px;
+  margin-top: 18px;
+  color: #111111;
+}
+
+.quote-form input,
+.quote-form textarea,
+.quote-form select {
+  width: 100%;
+  padding: 14px 16px;
+  background: #f5f5f5;
+  border: 1px solid #cccccc;
+  border-radius: 10px;
+  font-size: 16px;
+  color: #111111;
+}
+
+.quote-form input::placeholder,
+.quote-form textarea::placeholder {
+  color: #777777;
+}
+
+.quote-form input:focus,
+.quote-form textarea:focus,
+.quote-form select:focus {
+  outline: none;
+  border-color: #d4af37;
+  box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.2);
+  background: #ffffff;
+}
+
+.btn-submit {
+  margin-top: 28px;
+  width: 100%;
+}
+
+.response-note {
+  margin-top: 14px;
+  font-size: 14px;
+  color: #111111;
+}
+
+@media (max-width: 768px) {
+  .quote-actions {
+    flex-direction: column;
+  }
 }
 
 /* CTA band sits on a light surface — use dark ghost buttons here */
@@ -932,6 +1212,33 @@ body{
 .footer__name{ font-weight: 900; color: #fff; font-size: 1.1rem; letter-spacing: -0.02em; }
 .footer__tag{ color: rgba(255,255,255,0.72); font-weight: 700; }
 .footer__actions{ display:flex; gap: 0.65rem; flex-wrap: wrap; }
+
+.footer__social-link{
+  display:flex;
+  align-items:center;
+  gap: 0.45rem;
+  color: rgba(255,255,255,0.92);
+  font-weight: 600;
+  font-size: 0.95rem;
+  text-decoration:none;
+  border: 1px solid transparent;
+  padding: 0.35rem 0.85rem;
+  border-radius: 999px;
+  transition: color 0.2s ease, border-color 0.2s ease, background 0.2s ease;
+}
+
+.footer__social-link svg{
+  width: 20px;
+  height: 20px;
+  fill: currentColor;
+}
+
+.footer__social-link:hover,
+.footer__social-link:focus-visible{
+  color: var(--accent);
+  border-color: rgba(var(--accent-rgb),0.5);
+  background: rgba(var(--accent-rgb),0.08);
+}
 
 .footer__links{ list-style:none; padding:0; margin:0; display:grid; gap: 0.45rem; }
 
@@ -1526,4 +1833,70 @@ header .logo img {
   header .logo img {
     height: 52px;
   }
+}
+
+/* =========================
+   FORCE QUOTE FORM TO WHITE
+   ========================= */
+
+form.quote-form {
+  background: #ffffff !important;
+  color: #111111 !important;
+  padding: 32px;
+  border-radius: 18px;
+}
+
+/* Ensure all text inside is dark */
+form.quote-form *,
+form.quote-form label,
+form.quote-form p {
+  color: #111111 !important;
+}
+
+/* Inputs stay light */
+form.quote-form input,
+form.quote-form textarea,
+form.quote-form select {
+  background: #f5f5f5 !important;
+  color: #111111 !important;
+  border: 1px solid #cccccc !important;
+}
+
+/* Placeholder text */
+form.quote-form input::placeholder,
+form.quote-form textarea::placeholder {
+  color: #777777 !important;
+}
+
+/* Focus state (keep gold accent) */
+form.quote-form input:focus,
+form.quote-form textarea:focus,
+form.quote-form select:focus {
+  outline: none;
+  border-color: #d4af37;
+  box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.2);
+  background: #ffffff !important;
+}
+
+#quote .contact p,
+#quote .contact .fineprint {
+  color: #ffffff !important;
+}
+
+#quote .contact h2 {
+  color: #ffffff !important;
+}
+
+.form-confirmation{
+  background: rgba(var(--accent-rgb),0.12);
+  color: #111111;
+  border: 1px solid rgba(0,0,0,0.1);
+  border-radius: 12px;
+  padding: 0.45rem 0.9rem;
+  margin-top: 0.65rem;
+  display: inline-flex;
+}
+
+.form-confirmation[hidden]{
+  display:none !important;
 }
