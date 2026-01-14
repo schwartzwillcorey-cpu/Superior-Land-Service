@@ -1,6 +1,15 @@
 <!doctype html>
 <html lang="en">
 <head>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-ZWF09LSXZF"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-ZWF09LSXZF');
+  </script>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Land Clearing &amp; Forestry Mulching | Wills Point, TX | Superior Land Services</title>
@@ -275,7 +284,7 @@
 
       <div class="contact__row">
         <a class="btn btn--solid" href="tel:+12147978780">Call (214) 797-8780</a>
-        <a class="btn btn--ghost" href="mailto:clayton.marchbanks@yahoo.com">Email</a>
+        <a class="btn btn--ghost" href="#" id="email-link">Email</a>
       </div>
 
       <div class="fineprint">
@@ -285,15 +294,23 @@
 
     <form class="quote-form" name="quote" method="POST" data-netlify="true">
       <input type="hidden" name="form-name" value="quote" />
+      <input type="hidden" name="timestamp" id="form-timestamp" value="" />
+      <input type="text" name="website" style="display:none" tabindex="-1" autocomplete="off" />
       <label>
         <span>Name*</span>
         <input name="name" type="text" autocomplete="name" required />
       </label>
 
       <label>
-        <span>Phone*</span>
-        <input name="phone" type="tel" inputmode="tel" autocomplete="tel" required />
+        <span>Phone</span>
+        <input name="phone" type="tel" inputmode="tel" autocomplete="tel" id="phone-field" />
       </label>
+
+      <label>
+        <span>Email</span>
+        <input name="email" type="email" inputmode="email" autocomplete="email" id="email-field" />
+      </label>
+      <p class="form-note" style="margin-top: -0.5rem; font-size: 0.9rem; color: #999;">* Phone or Email required</p>
 
       <label>
         <span>City / Zip*</span>
@@ -393,6 +410,17 @@
       yearElement.textContent = new Date().getFullYear();
     }
 
+    // Email obfuscation - decode on click to prevent scraping
+    const emailLink = document.getElementById('email-link');
+    if (emailLink) {
+      emailLink.addEventListener('click', function(e) {
+        e.preventDefault();
+        const user = 'clayton.marchbanks';
+        const domain = 'yahoo.com';
+        window.location.href = 'mailto:' + user + '@' + domain;
+      });
+    }
+
     const quoteTarget = document.getElementById('quote');
     if (quoteTarget) {
       document.querySelectorAll('a[href="#quote"]').forEach(link => {
@@ -407,13 +435,66 @@
     const confirmation = document.querySelector('.form-confirmation');
     const quoteSubmitBtn = quoteForm ? quoteForm.querySelector('button[type="submit"]') : null;
 
-    // Send quote requests to Zapier webhook (static-site friendly).
+    // Send quote requests to n8n webhook (static-site friendly).
     // NOTE: We use `mode: "no-cors"` to avoid CORS blocking while still delivering the payload.
-    const ZAPIER_WEBHOOK_URL = 'https://hooks.zapier.com/hooks/catch/24223571/uamsvia/';
+    const N8N_WEBHOOK_URL = 'https://n8n.meridian-automations.com/webhook/ba3f5361-dc63-43f9-8e9f-df05e6ea9ae9';
+
+    // Set form load timestamp for bot detection
+    const formLoadTime = Date.now();
+    if (quoteForm) {
+      const timestampField = document.getElementById('form-timestamp');
+      if (timestampField) {
+        // Format as MM/DD/YYYY HH:MM:SS
+        const now = new Date();
+        const month = String(now.getMonth() + 1).padStart(2, '0');
+        const day = String(now.getDate()).padStart(2, '0');
+        const year = now.getFullYear();
+        const hours = String(now.getHours()).padStart(2, '0');
+        const minutes = String(now.getMinutes()).padStart(2, '0');
+        const seconds = String(now.getSeconds()).padStart(2, '0');
+        timestampField.value = `${month}/${day}/${year} ${hours}:${minutes}:${seconds}`;
+      }
+    }
 
     if (quoteForm && confirmation) {
       quoteForm.addEventListener('submit', async (event) => {
         event.preventDefault();
+
+        // Require at least one contact method (phone or email)
+        const phoneField = document.getElementById('phone-field');
+        const emailField = document.getElementById('email-field');
+        if ((!phoneField || !phoneField.value.trim()) && (!emailField || !emailField.value.trim())) {
+          confirmation.hidden = false;
+          confirmation.textContent = 'Please provide either a phone number or email address.';
+          confirmation.style.background = '#ff6b6b';
+          confirmation.style.color = '#ffffff';
+          setTimeout(() => {
+            confirmation.style.background = '#d4af37';
+            confirmation.style.color = '#006400';
+          }, 3000);
+          return;
+        }
+
+        // Honeypot check - if 'website' field is filled, it's likely a bot
+        const honeypot = quoteForm.querySelector('input[name="website"]');
+        if (honeypot && honeypot.value) {
+          console.log('Bot detected via honeypot');
+          return;
+        }
+
+        // Time-based validation - submissions under 3 seconds are suspicious
+        const timeDiff = Date.now() - formLoadTime;
+        if (timeDiff < 3000) {
+          confirmation.hidden = false;
+          confirmation.textContent = 'Please take a moment to review your information.';
+          confirmation.style.background = '#ff6b6b';
+          confirmation.style.color = '#ffffff';
+          setTimeout(() => {
+            confirmation.style.background = '#d4af37';
+            confirmation.style.color = '#006400';
+          }, 3000);
+          return;
+        }
 
         // UI: disable button while sending
         if (quoteSubmitBtn) {
@@ -430,7 +511,7 @@
           const formData = new FormData(quoteForm);
           formData.append('source', 'Website');
 
-          await fetch(ZAPIER_WEBHOOK_URL, {
+          await fetch(N8N_WEBHOOK_URL, {
             method: 'POST',
             body: formData,
             mode: 'no-cors'

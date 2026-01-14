@@ -1893,13 +1893,18 @@ form.quote-form select:focus {
 }
 
 .form-confirmation{
-  background: rgba(var(--accent-rgb),0.12);
-  color: #111111;
-  border: 1px solid rgba(0,0,0,0.1);
+  background: #d4af37 !important;
+  color: #006400 !important;
+  border: 2px solid #006400 !important;
   border-radius: 12px;
-  padding: 0.45rem 0.9rem;
-  margin-top: 0.65rem;
-  display: inline-flex;
+  padding: 1rem 1.5rem !important;
+  margin-top: 1rem;
+  display: block !important;
+  font-weight: 700 !important;
+  font-size: 1.2rem !important;
+  text-align: center;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .form-confirmation[hidden]{
